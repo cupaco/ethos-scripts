@@ -1,8 +1,10 @@
 # ethos-scripts
 Scripts for ethOS
 
-1st Script: NVIDIA-power-limit
-DESC: This script will detect the NVIDIA graphic cards and will reset the powerlimit in watt.
+# 1st Script: NVIDIA-power-limit
+
+This script will detect any NVIDIA graphic card and will reset the powerlimit in watt.
+It's optimal to set a NVIDIA GTX1070 to a limit of 100W to save around 30% of energy.
 
  Set a new Powerlimit for NVIDIA PGUs                     
  on ethos or other Linux, which has nvidia-smi installed. 
@@ -12,7 +14,7 @@ DESC: This script will detect the NVIDIA graphic cards and will reset the powerl
 
 
 
-Thank you for using and any donations.
+# Thank you for using and any donations.
 
 ETH: 0x378EF90Dc697c2397327dB2b8F665387C40d1Ad9
 Zcash: t1chPVQiV8DcRJESnbh5xjFAYQ6XL3Vz7No
