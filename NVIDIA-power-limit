@@ -1,0 +1,51 @@
+#!/bin/bash
+############################################################
+# Set a new Powerlimit for NVIDIA PGUs                     #
+# on ethos or other Linux, which has nvidia-smi installed. #
+############################################################
+# Usage: ./NVIDIA-power-limit $POWER_LIMIT                 #
+# $POWER_LIMIT could be 150 or 99.5                        #
+############################################################
+# Autor: Gery (gery@net6.at)                               #
+#                                                          #
+# Thank you for any donations.                             #
+# ETH: 0x378EF90Dc697c2397327dB2b8F665387C40d1Ad9          #
+# Zcash: t1chPVQiV8DcRJESnbh5xjFAYQ6XL3Vz7No               #
+# BTC: 1GEybheHJtZ4SdWiW3FQa33BE4826cvptQ                  #
+############################################################
+
+
+NV_COUNT=`lspci | grep NVIDIA | grep VGA | wc -l`
+
+if [[ $1 != "" ]]; then
+MAX_WATT=$1
+
+echo "DETECT: $NV_COUNT NVIDIA GPUs."
+
+for ((i=1;i<=$NV_COUNT;i++)) do
+GPU_NUM=$(($i-1))
+echo ""
+echo "SET PowerLimit to $MAX_WATT Watt on NVIDIA GPU$GPU_NUM."
+sudo nvidia-smi -i $GPU_NUM -pl $MAX_WATT >> /dev/null
+done
+
+echo ""
+echo "PowerLimit was set to: $MAX_WATT Watt"
+echo ""
+else
+echo "PowerLimit unchanged."
+echo "To set a new powerlimit run $0 WATT_LIMIT (Example for 100 Watt -> $0 100 )"
+echo ""
+fi
+
+echo "+-----------------------------------------------------------------------------+"
+echo "| NVIDIA GPU DETAILS:   -   by nvidia-smi usage   |      GPU - Count: $NV_COUNT       |"
+echo "+-----------------------------------------------------------------------------+"
+echo "| FAN | TMP | Perf | WATT / MAX W| VRAM USED /  VRAM   | GPU-Util  |  Compute |"
+echo "+-----------------------------------------------------------------------------+"
+nvidia-smi | grep W
+echo "+-----------------------------------------------------------------------------+"
+echo ""
+
+
+exit 0
