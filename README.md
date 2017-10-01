@@ -12,8 +12,6 @@ DESC: This script will detect the NVIDIA graphic cards and will reset the powerl
 
 
 
-
-
 Thank you for using and any donations.
 
 ETH: 0x378EF90Dc697c2397327dB2b8F665387C40d1Ad9
