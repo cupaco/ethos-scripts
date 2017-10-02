@@ -30,16 +30,19 @@ sudo nvidia-smi -i $GPU_NUM -pl $MAX_WATT >> /dev/null
 done
 
 echo ""
-echo "PowerLimit was set to: $MAX_WATT Watt"
+echo -e "\033[0;32mPowerLimit was set to: \033[1;32m$MAX_WATT \033[0;32mWatt.\033[0m"
 echo ""
 else
-echo "PowerLimit unchanged."
-echo "To set a new powerlimit run $0 WATT_LIMIT (Example for 100 Watt -> $0 100 )"
-echo ""
 MIN_POW=`nvidia-smi -a| grep "Min Power Limit" |awk '{print $5;}' | sort -n -r |head -n 1`
 MAX_POW=`nvidia-smi -a| grep "Max Power Limit" |awk '{print $5;}' | sort -n |head -n 1`
-echo "Power Limit Min: $MIN_POW"
-echo "Power Limit Max: $MAX_POW"
+echo ""
+echo -e "\033[1;31mPowerLimit unchanged.\033[0m"
+echo ""
+echo "To set a new powerlimit run $0 WATT_LIMIT (Example for 100 Watt -> $0 100 )"
+echo "You can set your PowerLimit between $MIN_POW Watt and $MAX_POW Watt."
+echo ""
+echo -e "\033[1;33mPower Limit Min: \033[1;31m$MIN_POW \033[1;33mWatt\033[0m"
+echo -e "\033[1;33mPower Limit Max: \033[1;32m$MAX_POW \033[1;33mWatt\033[0m"
 echo ""
 fi
 
@@ -54,3 +57,4 @@ echo ""
 
 
 exit 0
+
