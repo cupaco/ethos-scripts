@@ -36,6 +36,11 @@ else
 echo "PowerLimit unchanged."
 echo "To set a new powerlimit run $0 WATT_LIMIT (Example for 100 Watt -> $0 100 )"
 echo ""
+MIN_POW=`nvidia-smi -a| grep "Min Power Limit" |awk '{print $5;}' | sort -n -r |head -n 1`
+MAX_POW=`nvidia-smi -a| grep "Max Power Limit" |awk '{print $5;}' | sort -n |head -n 1`
+echo "Power Limit Min: $MIN_POW"
+echo "Power Limit Max: $MAX_POW"
+echo ""
 fi
 
 echo "+-----------------------------------------------------------------------------+"
