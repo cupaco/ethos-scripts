@@ -1,0 +1,11 @@
+[Unit]
+Description=set nvidia power limit
+
+[Service]
+Type=oneshot
+ExecStartPre=/usr/bin/nvidia-smi --persistence-mode=1
+ExecStart=/opt/NVIDIA-power-limit/NVIDIA-power-limit POWLIMIT
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

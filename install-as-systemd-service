@@ -1,0 +1,38 @@
+#!/bin/bash
+############################################
+# Install NVIDIA-power-limit as a Service  #
+############################################
+
+MIN=`nvidia-smi -a| grep "Min Power Limit" |awk '{print $5;}' | sort -n -r |head -n 1`
+MAX=`nvidia-smi -a| grep "Max Power Limit" |awk '{print $5;}' | sort -n |head -n 1`
+
+if [ $# -lt 1 ];
+ then
+   echo "Please set a valid Powerlimit like 100 or 99.5"
+   echo "Higher than: $MIN Watt, but lower than $MAX Watt."
+   echo ""
+   echo "usage: $0 100"
+  exit 1
+
+elif [[ $1 -gt $MAX ]];
+ then
+   echo "$1 Watt is too high. Please set a lower Power Limit below $MAX Watt."
+  exit 1
+
+elif [[ $1 -lt $MIN ]];
+ then
+   echo "$1 Watt is too low. Please set a higher Power Limit above $MIN Watt."
+  exit 1
+
+fi
+# create Install-Dir
+mkdir /opt/NVIDIA-power-limit
+cp NVIDIA-power-limit /opt/NVIDIA-power-limit/
+# copy Files
+cat nvidia-powerlimit.service | sed 's/NVIDIA-power-limit.*/NVIDIA-power-limit\/NVIDIA-power-limit $1/' > /etc/systemd/system/nvidia-power-limit.service
+
+echo "NVIDIA-power-limit has been re/install as service with a Powerlimit of $1 Watt"
+
+
+
+
